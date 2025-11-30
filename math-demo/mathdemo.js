@@ -119,7 +119,20 @@ function MemoryNetwork() {
         <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
           Problem Solving &amp; Memory: Psychology
         </h1>
+
+        {/* 👇 Add this caption */}
+        <p className="max-w-2xl mx-auto mt-3 text-slate-400 text-sm md:text-base leading-relaxed px-4">
+          This interactive demo walks you through how your brain solves a simple
+          algebra equation step-by-step. Click through each stage to explore how
+          your brain processes work together when solving math problems.
+        </p>
+        <p className="mt-4 text-center text-slate-300 text-lg font-medium tracking-wide">
+          <span className="text-sky-300 font-semibold">The Problem:</span> 5x − 2 = 8
+        </p>
+
       </header>
+
+
 
       {/* SVG + nodes overlay */}
       <div className="absolute inset-0 z-10">

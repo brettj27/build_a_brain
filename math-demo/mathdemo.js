@@ -8,64 +8,74 @@ const steps = [
     system: "Sensory Memory",
     title: "Perception & Encoding",
     description: [
-      "You see the problem 5x - 2 = 8.",
-      "test",
+      "You see the problem 5x - 2 = 8. Your eyes and visual cortex register the symbols on the page or screen.",
+      "Your brain recognizes the digits 2, 5, 8 as meaningful symbols (numbers representing quantities).",
+      "Your brain recognizes x and the operators - and = as mathematical symbols with functions.",
+      "Your brain encodes the symbols into mental representations, which then enter working memory.",
     ],
-    brain: "a",
   },
   {
     id: 2,
     label: "Stage 2",
     system: "Working Memory",
     title: "Holding the Equation",
-    description:
-      "Working memory keeps the pieces (2x, +, 5, =, 9) active so you can think about them. You might silently repeat it in your head.",
-    brain: "prefrontal cortex & working memory systems",
+    description: [
+      "Working memory keeps the components of the equation active so you can think about them.",
+      "Attention allows the problem to stay active in working memory. Unattended stimuli are forgotten!",
+      "You might use rehearsal (silently repeating the equation) to keep it in working memory.",
+      
+    ],
   },
   {
     id: 3,
     label: "Stage 3",
     system: "Long-Term Memory",
     title: "Retrieving Rules & Facts",
-    description:
-      "Your brain pulls in stored algebra rules and number facts: move the 5 to the other side, and 9 − 5 = 4.",
-    brain: "hippocampus & semantic memory networks",
+    description: [
+      "Your brain retrieves stored (previously learned) algebra rules from your long-term memory.",
+      "Rules such as operations have to be done to both sides, you can't divide by 0.",
+    ],
   },
   {
     id: 4,
     label: "Stage 4",
     system: "Working + Procedural Memory",
     title: "Applying the Steps",
-    description:
-      "You use the rules to transform the equation: 2x = 4, then x = 2. If you’ve practiced a lot, this feels almost automatic.",
-    brain: "prefrontal cortex + procedural circuits (basal ganglia)",
+    description: [
+      "Working memory uses the retrieved rules to actively solve equation step-by-step.",
+      "You remember from previous problems you need to add 2 to both sides, and then divide by 5 on both sides.",
+      "The more practice you have, the more these procedures become easier and faster.",
+    ],
   },
   {
     id: 5,
     label: "Stage 5",
     system: "Encoding to Long-Term Memory",
     title: "Reinforcing the Pattern",
-    description:
-      "Solving similar problems strengthens the pathway, making it easier to solve the next equation you see.",
-    brain: "hippocampus consolidating repeated patterns",
+    description: [
+      "Each time you solve similar problems, your brain strengthens the long-term memory's ability to quickly retrieve the rules and procedures needed.",
+      "Through repeated practice, these steps become more efficient and easier to retrieve the next time you need to solve a similar problem.",
+    ],
   },
   {
     id: 6,
     label: "Stage 6",
-    system: "Encoding to Long-Term Memory",
+    system: "Working Memory and Long-Term Memory",
     title: "Reinforcing the Pattern (Continued)",
-    description:
-      "With more practice, solving linear equations becomes fast and automatic, freeing working memory for harder problems.",
-    brain: "hippocampus + procedural circuits",
+    description: [
+      "The more practice you get going through these steps, the easier and more accurately you are able to solve problems.",
+      "You might solve 10, 20, or 50 more problems to feel confident for an upcoming test",
+      "Once you are actually taking the test, you are more likely to be able to solve the problems since you are familiar with the procedures and have solved different types of problems.",
+    ],
   },
   {
     id: 7,
     label: "References (Citations)",
     system: "Research Links",
     title: "Works Cited",
-    description:
-      "Atkinson, R. C., & Shiffrin, R. M. (1968). \n Human memory: A proposed system and its control processes.",
-    brain: "linking cognitive psychology research to your demo",
+    description: [
+      "Raghubar, K. P., Barnes, M. A., & Hecht, S. A. (2010). Working memory and mathematics: A review of developmental, individual difference, and cognitive approaches. Learning and Individual Differences, 20(2), 110–122.",
+    ],
   },
 ];
 
@@ -221,9 +231,6 @@ function MemoryNetwork() {
 
 
 
-          <p className="mt-3 text-[11px] md:text-xs text-slate-400 text-left">
-            Brain focus: {activeStep.brain}.
-          </p>
 
           <div className="mt-4 flex items-center justify-between gap-2 text-xs text-slate-400">
             <p>

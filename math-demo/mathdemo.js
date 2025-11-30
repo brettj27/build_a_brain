@@ -1,15 +1,17 @@
 // mathdemo.js
 
+
 const steps = [
   {
     id: 1,
     label: "Stage 1",
     system: "Sensory Memory",
     title: "Perception & Encoding",
-    description:
-      "You see the equation 2x + 5 = 9. The eyes and visual cortex recognize the symbols as numbers, letters, and an equals sign.",
-    example: 'Visual snapshot of “2x + 5 = 9”.',
-    brain: "visual cortex (occipital lobe)",
+    description: [
+      "You see the problem 5x - 2 = 8.",
+      "test",
+    ],
+    brain: "a",
   },
   {
     id: 2,
@@ -18,7 +20,6 @@ const steps = [
     title: "Holding the Equation",
     description:
       "Working memory keeps the pieces (2x, +, 5, =, 9) active so you can think about them. You might silently repeat it in your head.",
-    example: 'Inner voice: “Two x plus five equals nine.”',
     brain: "prefrontal cortex & working memory systems",
   },
   {
@@ -28,7 +29,6 @@ const steps = [
     title: "Retrieving Rules & Facts",
     description:
       "Your brain pulls in stored algebra rules and number facts: move the 5 to the other side, and 9 − 5 = 4.",
-    example: 'Rule: “Subtract 5 from both sides.”',
     brain: "hippocampus & semantic memory networks",
   },
   {
@@ -38,7 +38,6 @@ const steps = [
     title: "Applying the Steps",
     description:
       "You use the rules to transform the equation: 2x = 4, then x = 2. If you’ve practiced a lot, this feels almost automatic.",
-    example: "Doing 9 − 5 and 4 ÷ 2 without much effort.",
     brain: "prefrontal cortex + procedural circuits (basal ganglia)",
   },
   {
@@ -48,7 +47,6 @@ const steps = [
     title: "Reinforcing the Pattern",
     description:
       "Solving similar problems strengthens the pathway, making it easier to solve the next equation you see.",
-    example: "Next time you see ax + b = c, you solve it faster.",
     brain: "hippocampus consolidating repeated patterns",
   },
   {
@@ -58,17 +56,15 @@ const steps = [
     title: "Reinforcing the Pattern (Continued)",
     description:
       "With more practice, solving linear equations becomes fast and automatic, freeing working memory for harder problems.",
-    example: "You barely have to think about the algebra steps anymore.",
     brain: "hippocampus + procedural circuits",
   },
   {
     id: 7,
     label: "References (Citations)",
     system: "Research Links",
-    title: "Psychology of Problem Solving",
+    title: "Works Cited",
     description:
-      "Key researchers on working memory and problem solving include Baddeley, Swanson, Ashcraft, Mayer, and Anderson.",
-    example: "See: Baddeley (1992), Swanson & Beebe-Frankenberger (2004).",
+      "Atkinson, R. C., & Shiffrin, R. M. (1968). \n Human memory: A proposed system and its control processes.",
     brain: "linking cognitive psychology research to your demo",
   },
 ];
@@ -88,56 +84,19 @@ function MemoryNetwork() {
   const [activeIndex, setActiveIndex] = React.useState(0);
   const activeStep = steps[activeIndex];
 
-  // SVG paths + size computed from DOM
-  const [basePath, setBasePath] = React.useState("");
-  const [progressPath, setProgressPath] = React.useState("");
-  const [svgSize, setSvgSize] = React.useState({ width: 100, height: 100 });
+  // Build base (gray) path from nodeLayout (0–100 space)
+  const basePath = nodeLayout
+    .map((n, idx) => `${idx === 0 ? "M" : "L"} ${n.x} ${n.y}`)
+    .join(" ");
 
-  // container for SVG + nodes
-  const trackRef = React.useRef(null);
-
-  // recompute line whenever activeIndex or layout changes
-  React.useEffect(() => {
-    function updatePaths() {
-      const container = trackRef.current;
-      if (!container) return;
-
-      const containerRect = container.getBoundingClientRect();
-
-      // 🔑 select the 10x10 circle wrappers, not the whole button
-      const nodeEls = container.querySelectorAll("[data-node-id]");
-      if (!nodeEls.length) return;
-
-      // get center of each circle relative to container
-      const coords = Array.from(nodeEls).map((el) => {
-        const r = el.getBoundingClientRect();
-        const x = r.left + r.width / 2 - containerRect.left;
-        const y = r.top + r.height / 2 - containerRect.top;
-        return { x, y };
-      });
-
-      setSvgSize({
-        width: containerRect.width,
-        height: containerRect.height,
-      });
-
-      const fullPath = coords
-        .map((p, idx) => `${idx === 0 ? "M" : "L"} ${p.x} ${p.y}`)
-        .join(" ");
-
-      const partialCoords = coords.slice(0, activeIndex + 1);
-      const partialPath = partialCoords
-        .map((p, idx) => `${idx === 0 ? "M" : "L"} ${p.x} ${p.y}`)
-        .join(" ");
-
-      setBasePath(fullPath);
-      setProgressPath(partialPath);
-    }
-
-    updatePaths();
-    window.addEventListener("resize", updatePaths);
-    return () => window.removeEventListener("resize", updatePaths);
-  }, [activeIndex]);
+  // Build blue progress path only AFTER stage 1
+  const progressPath =
+    activeIndex > 0
+      ? nodeLayout
+          .slice(0, activeIndex + 1)
+          .map((n, idx) => `${idx === 0 ? "M" : "L"} ${n.x} ${n.y}`)
+          .join(" ")
+      : "";
 
   function handleNext() {
     setActiveIndex((prev) => (prev + 1) % steps.length);
@@ -153,36 +112,36 @@ function MemoryNetwork() {
       </header>
 
       {/* SVG + nodes overlay */}
-      <div ref={trackRef} className="absolute inset-0 z-10">
+      <div className="absolute inset-0 z-10">
         <svg
           className="absolute inset-0 pointer-events-none"
           width="100%"
           height="100%"
-          viewBox={`0 0 ${svgSize.width} ${svgSize.height}`}
+          viewBox="0 0 100 100"          // match our 0–100 coords
           preserveAspectRatio="none"
         >
-          {basePath && (
-            <path
-              d={basePath}
-              fill="none"
-              style={{
-                stroke: "rgba(148,163,184,0.45)", // slate-ish
-                strokeWidth: 4,
-              }}
-            />
-          )}
+          {/* full gray line, always visible */}
+          <path
+            d={basePath}
+            fill="none"
+            stroke="rgba(148,163,184,0.35)"
+            strokeWidth=".5"
+            strokeLinecap="round"
+          />
+
+          {/* blue progress line, only after stage 1 */}
           {progressPath && (
             <path
               d={progressPath}
               fill="none"
-              style={{
-                stroke: "rgba(56,189,248,0.75)", // sky-ish
-                strokeWidth: 6,
-              }}
+              stroke="rgba(56,189,248,0.85)"
+              strokeWidth=".6"
+              strokeLinecap="round"
             />
           )}
         </svg>
 
+        {/* Nodes */}
         {nodeLayout.map((node, idx) => {
           const isActive = idx === activeIndex;
           const isVisited = idx < activeIndex;
@@ -199,9 +158,7 @@ function MemoryNetwork() {
                 transform: "translate(-50%, -50%)",
               }}
             >
-              {/* 🔑 line anchors to this div's center */}
               <div
-                data-node-id={node.id}
                 className={[
                   "h-10 w-10 rounded-full flex items-center justify-center transition-all duration-300",
                   isActive
@@ -249,17 +206,20 @@ function MemoryNetwork() {
             )}
           </div>
 
-          <p className="text-sm md:text-[15px] leading-relaxed text-slate-200 text-left">
-            {activeStep.description}
-          </p>
-
-          <div className="mt-3 flex flex-wrap items-center gap-2 text-xs md:text-[13px] text-left">
-            <span className="inline-flex items-center rounded-full bg-slate-800 px-2 py-0.5 text-slate-300">
-              <span className="mr-1.5 h-1.5 w-1.5 rounded-full bg-emerald-400" />
-              Example
-            </span>
-            <span className="text-slate-300 italic">{activeStep.example}</span>
+          <div className="text-sm md:text-[15px] leading-relaxed text-slate-200 text-left">
+            {Array.isArray(activeStep.description)
+              ? activeStep.description.map((line, i) => (
+                <p key={i} className="mb-1 whitespace-pre-line">
+                  {line}
+                </p>
+              ))
+              : <p className="whitespace-pre-line">{activeStep.description}</p>
+            }
           </div>
+
+
+
+
 
           <p className="mt-3 text-[11px] md:text-xs text-slate-400 text-left">
             Brain focus: {activeStep.brain}.

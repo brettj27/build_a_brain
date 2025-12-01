@@ -9,7 +9,7 @@ const steps = [
     title: "Perception & Encoding",
     description: [
       "You see the problem 5x - 2 = 8. Your eyes and visual cortex register the symbols on the page or screen.",
-      "Your brain recognizes the digits 2, 5, 8 as meaningful symbols (numbers representing quantities).",
+      "As the information enters working memory, your brain uses long-term memory to recognize 2, 5, and 8 as numbers representing quantities.",
       "Your brain recognizes x and the operators - and = as mathematical symbols with functions.",
       "Your brain encodes the symbols into mental representations, which then enter working memory.",
     ],
@@ -33,7 +33,7 @@ const steps = [
     title: "Retrieving Rules & Facts",
     description: [
       "Your brain retrieves stored (previously learned) algebra rules from your long-term memory.",
-      "Rules such as operations have to be done to both sides, you can't divide by 0.",
+      "Rules such as operations have to be done to both sides, isolating variables, and inverse mathematical operations.",
     ],
   },
   {
@@ -42,8 +42,7 @@ const steps = [
     system: "Working + Procedural Memory",
     title: "Applying the Steps",
     description: [
-      "Working memory uses the retrieved rules to actively solve equation step-by-step.",
-      "You remember from previous problems you need to add 2 to both sides, and then divide by 5 on both sides.",
+      "Working memory uses the retrieved rules to actively solve equation step-by-step by applying correct procedures (such as adding 2 to both sides and then dividing by 5), which it retrieves from long-term memory.",
       "The more practice you have, the more these procedures become easier and faster.",
     ],
   },
@@ -74,20 +73,22 @@ const steps = [
     system: "Research Links",
     title: "Works Cited",
     description: [
-      "Raghubar, K. P., Barnes, M. A., & Hecht, S. A. (2010). Working memory and mathematics: A review of developmental, individual difference, and cognitive approaches. Learning and Individual Differences, 20(2), 110–122.",
+      "→ Raghubar, K. P., Barnes, M. A., & Hecht, S. A. (2010). Working memory and mathematics: A review of developmental, individual difference, and cognitive approaches. Learning and Individual Differences, 20(2), 110–122.",
+      "→ Imbo I, Vandierendonck A, Vergauwe E. The role of working memory in carrying and borrowing. Psychol Res. 2007 Jul;71(4):467-83. doi: 10.1007/s00426-006-0044-8. Epub 2006 Apr 19. PMID: 16622702.",
+      "→ Atkinson & Shiffrin (1968) Memory Model",
     ],
   },
 ];
 
 // node positions as % of container
 const nodeLayout = [
-  { id: 1, x: 7, y: 45 },
-  { id: 2, x: 21.3, y: 43 },
-  { id: 3, x: 35.6, y: 46 },
-  { id: 4, x: 50, y: 44 },
-  { id: 5, x: 64.3, y: 45 },
-  { id: 6, x: 78.6, y: 43 },
-  { id: 7, x: 93, y: 47 },
+  { id: 1, x: 7, y: 40 },
+  { id: 2, x: 21.3, y: 38 },
+  { id: 3, x: 35.6, y: 41 },
+  { id: 4, x: 50, y: 39 },
+  { id: 5, x: 64.3, y: 40 },
+  { id: 6, x: 78.6, y: 38 },
+  { id: 7, x: 93, y: 42 },
 ];
 
 function MemoryNetwork() {
@@ -124,7 +125,7 @@ function MemoryNetwork() {
         <p className="max-w-2xl mx-auto mt-3 text-slate-400 text-sm md:text-base leading-relaxed px-4">
           This interactive demo walks you through how your brain solves a simple
           algebra equation step-by-step. Click through each stage to explore how
-          your brain processes work together when solving math problems.
+          your brain processes work together when solving math problems. Use a computer or laptop for the best experience.
         </p>
         <p className="mt-4 text-center text-slate-300 text-lg font-medium tracking-wide">
           <span className="text-sky-300 font-semibold">The Problem:</span> 5x − 2 = 8
@@ -209,6 +210,15 @@ function MemoryNetwork() {
           );
         })}
       </div>
+      {/* Open Source Button */}
+      <a
+        href="https://github.com/brettj27/build_a_brain"   // <-- put your repo link
+        target="_blank"
+        rel="noopener noreferrer"
+        className="absolute top-4 right-6 z-30 inline-flex items-center rounded-full border border-sky-400/70 bg-sky-500/10 px-4 py-1.5 text-[12px] font-semibold text-sky-200 hover:bg-sky-500/20 transition"
+      >
+        This Project is Open Source!
+      </a>
 
       {/* Bottom card */}
       <div className="relative z-20 w-full flex flex-col items-center text-center pb-10">
@@ -239,12 +249,6 @@ function MemoryNetwork() {
               : <p className="whitespace-pre-line">{activeStep.description}</p>
             }
           </div>
-
-
-
-
-
-
           <div className="mt-4 flex items-center justify-between gap-2 text-xs text-slate-400">
             <p>
               Stage{" "}

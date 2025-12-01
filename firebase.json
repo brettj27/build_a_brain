@@ -1,0 +1,10 @@
+{
+  "hosting": {
+    "public": "math-demo",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

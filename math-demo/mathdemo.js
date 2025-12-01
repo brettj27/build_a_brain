@@ -1,6 +1,4 @@
-// mathdemo.js
-
-
+// All of the Steps
 const steps = [
   {
     id: 1,
@@ -80,27 +78,27 @@ const steps = [
   },
 ];
 
-// node positions as % of container
+// Node Positions (% of container)
 const nodeLayout = [
   { id: 1, x: 7, y: 40 },
   { id: 2, x: 21.3, y: 38 },
-  { id: 3, x: 35.6, y: 41 },
-  { id: 4, x: 50, y: 39 },
+  { id: 3, x: 35.6, y: 40 },
+  { id: 4, x: 50, y: 38 },
   { id: 5, x: 64.3, y: 40 },
   { id: 6, x: 78.6, y: 38 },
-  { id: 7, x: 93, y: 42 },
+  { id: 7, x: 93, y: 40 },
 ];
 
 function MemoryNetwork() {
   const [activeIndex, setActiveIndex] = React.useState(0);
   const activeStep = steps[activeIndex];
 
-  // Build base (gray) path from nodeLayout (0–100 space)
+  // Build Gray Path
   const basePath = nodeLayout
     .map((n, idx) => `${idx === 0 ? "M" : "L"} ${n.x} ${n.y}`)
     .join(" ");
 
-  // Build blue progress path only AFTER stage 1
+  // Build Blue Progress Path
   const progressPath =
     activeIndex > 0
       ? nodeLayout
@@ -115,13 +113,13 @@ function MemoryNetwork() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-50 relative overflow-hidden flex flex-col justify-between">
-      {/* Header */}
+      {/* Title */}
       <header className="z-20 text-center pt-10 pb-4">
         <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
           Problem Solving &amp; Memory: Psychology
         </h1>
 
-        {/* 👇 Add this caption */}
+        {/* Demo Overview */}
         <p className="max-w-2xl mx-auto mt-3 text-slate-400 text-sm md:text-base leading-relaxed px-4">
           This interactive demo walks you through how your brain solves a simple
           algebra equation step-by-step. Click through each stage to explore how
@@ -135,16 +133,16 @@ function MemoryNetwork() {
 
 
 
-      {/* SVG + nodes overlay */}
+      {/* Nodes Overlay for the Lines */}
       <div className="absolute inset-0 z-10">
         <svg
           className="absolute inset-0 pointer-events-none"
           width="100%"
           height="100%"
-          viewBox="0 0 100 100"          // match our 0–100 coords
+          viewBox="0 0 100 100"       
           preserveAspectRatio="none"
         >
-          {/* full gray line, always visible */}
+          {/* Full Gray Line */}
           <path
             d={basePath}
             fill="none"
@@ -153,7 +151,7 @@ function MemoryNetwork() {
             strokeLinecap="round"
           />
 
-          {/* blue progress line, only after stage 1 */}
+          {/* Blue Progress Line */}
           {progressPath && (
             <path
               d={progressPath}
@@ -210,17 +208,17 @@ function MemoryNetwork() {
           );
         })}
       </div>
-      {/* Open Source Button */}
+      {/* Source Code Button */}
       <a
         href="https://github.com/brettj27/build_a_brain"   // <-- put your repo link
         target="_blank"
         rel="noopener noreferrer"
         className="absolute top-4 right-6 z-30 inline-flex items-center rounded-full border border-sky-400/70 bg-sky-500/10 px-4 py-1.5 text-[12px] font-semibold text-sky-200 hover:bg-sky-500/20 transition"
       >
-        This Project is Open Source!
+        Click Here for the Source Code!
       </a>
 
-      {/* Bottom card */}
+      {/* Step Information Box */}
       <div className="relative z-20 w-full flex flex-col items-center text-center pb-10">
         <div className="w-full max-w-md bg-slate-900/85 border border-slate-700/80 rounded-3xl px-5 py-5 md:px-6 md:py-6 shadow-xl shadow-slate-950/70 backdrop-blur mb-6">
           <div className="flex items-center justify-between gap-3 mb-3">
